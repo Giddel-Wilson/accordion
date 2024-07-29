@@ -1,21 +1,31 @@
 <script>
-  import { accordionContent } from "./ContentData";
+  import { accordionContent } from './ContentData';
 
-  let isOpen = false;
-  let collapse = () => {
-    isOpen = !isOpen;
-  }
+  // Initialize an object to keep track of which accordions are open
+  let isOpen = {};
+
+  const toggleCollapse = (index) => {
+    // Toggle the open state for the specific accordion
+    isOpen[index] = !isOpen[index];
+
+    // Log the current state of all accordions for debugging purposes
+    console.log(isOpen);
+  };
 </script>
 
-{#each accordionContent as { heading, _content }}
+{#each accordionContent as { heading, _content }, index}
   <div class="accord">
-    <button class="accordBtn" class:active={isOpen} on:click={collapse}>
+    <button
+      class="accordBtn"
+      class:active={isOpen[index]}
+      on:click={() => toggleCollapse(index)}
+    >
       <div class="div">
         <h4>{heading}</h4>
-        <button class="btn">━</button>
+        <span class="btn">━</span>
       </div>
     </button>
-    <div class="panel" class:open-panel={isOpen}>
+    <div class="panel" class:open-panel={isOpen[index]}>
       {_content}
     </div>
   </div>
@@ -31,11 +41,11 @@
   .accord:last-child {
     border-bottom: none;
   }
-  
+
   .div h4 {
     font-size: 15px;
   }
-  
+
   .btn {
     border-radius: 100%;
     font-size: 12px;
@@ -87,4 +97,8 @@
   /* .accordBtn:active {
     background-color: blue;
   } */
+
+  .hidden {
+    display: none !important;
+  }
 </style>
