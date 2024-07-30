@@ -452,87 +452,169 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[2] = list[i].heading;
-    	child_ctx[3] = list[i]._content;
+    	child_ctx[3] = list[i].heading;
+    	child_ctx[4] = list[i]._content;
+    	child_ctx[6] = i;
     	return child_ctx;
     }
 
-    // (10:0) {#each accordionContent as { heading, _content }}
+    // (21:8) {:else}
+    function create_else_block(ctx) {
+    	let button;
+
+    	const block = {
+    		c: function create() {
+    			button = element("button");
+    			button.textContent = "+";
+    			attr_dev(button, "class", "plusBtn svelte-p9kr5m");
+    			add_location(button, file$3, 21, 8, 517);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, button, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(button);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block.name,
+    		type: "else",
+    		source: "(21:8) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (19:8) {#if isOpen === i}
+    function create_if_block(ctx) {
+    	let button;
+
+    	const block = {
+    		c: function create() {
+    			button = element("button");
+    			button.textContent = "━";
+    			attr_dev(button, "class", "minusBtn svelte-p9kr5m");
+    			add_location(button, file$3, 19, 8, 455);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, button, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(button);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(19:8) {#if isOpen === i}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (10:0) {#each accordionContent as { heading, _content }
     function create_each_block(ctx) {
     	let div2;
-    	let button1;
+    	let button;
     	let div0;
     	let h4;
-    	let t0_value = /*heading*/ ctx[2] + "";
+    	let t0_value = /*heading*/ ctx[3] + "";
     	let t0;
     	let t1;
-    	let button0;
-    	let t3;
+    	let t2;
     	let div1;
-    	let t4_value = /*_content*/ ctx[3] + "";
+    	let t3_value = /*_content*/ ctx[4] + "";
+    	let t3;
     	let t4;
-    	let t5;
     	let mounted;
     	let dispose;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*isOpen*/ ctx[0] === /*i*/ ctx[6]) return create_if_block;
+    		return create_else_block;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	function click_handler() {
+    		return /*click_handler*/ ctx[2](/*i*/ ctx[6]);
+    	}
 
     	const block = {
     		c: function create() {
     			div2 = element("div");
-    			button1 = element("button");
+    			button = element("button");
     			div0 = element("div");
     			h4 = element("h4");
     			t0 = text(t0_value);
     			t1 = space();
-    			button0 = element("button");
-    			button0.textContent = "━";
-    			t3 = space();
+    			if_block.c();
+    			t2 = space();
     			div1 = element("div");
-    			t4 = text(t4_value);
-    			t5 = space();
-    			attr_dev(h4, "class", "svelte-8udmsm");
-    			add_location(h4, file$3, 13, 8, 337);
-    			attr_dev(button0, "class", "btn svelte-8udmsm");
-    			add_location(button0, file$3, 14, 8, 365);
-    			attr_dev(div0, "class", "div svelte-8udmsm");
-    			add_location(div0, file$3, 12, 6, 310);
-    			attr_dev(button1, "class", "accordBtn svelte-8udmsm");
-    			toggle_class(button1, "active", /*isOpen*/ ctx[0]);
-    			add_location(button1, file$3, 11, 4, 234);
-    			attr_dev(div1, "class", "panel svelte-8udmsm");
-    			toggle_class(div1, "open-panel", /*isOpen*/ ctx[0]);
-    			add_location(div1, file$3, 17, 4, 430);
-    			attr_dev(div2, "class", "accord svelte-8udmsm");
-    			add_location(div2, file$3, 10, 2, 208);
+    			t3 = text(t3_value);
+    			t4 = space();
+    			attr_dev(h4, "class", "svelte-p9kr5m");
+    			add_location(h4, file$3, 17, 8, 399);
+    			attr_dev(div0, "class", "div svelte-p9kr5m");
+    			add_location(div0, file$3, 16, 6, 372);
+    			attr_dev(button, "class", "accordBtn svelte-p9kr5m");
+    			toggle_class(button, "active", /*isOpen*/ ctx[0] === /*i*/ ctx[6]);
+    			add_location(button, file$3, 11, 4, 254);
+    			attr_dev(div1, "class", "panel svelte-p9kr5m");
+    			toggle_class(div1, "open-panel", /*isOpen*/ ctx[0] === /*i*/ ctx[6]);
+    			add_location(div1, file$3, 25, 4, 601);
+    			attr_dev(div2, "class", "accord svelte-p9kr5m");
+    			add_location(div2, file$3, 10, 2, 228);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
-    			append_dev(div2, button1);
-    			append_dev(button1, div0);
+    			append_dev(div2, button);
+    			append_dev(button, div0);
     			append_dev(div0, h4);
     			append_dev(h4, t0);
     			append_dev(div0, t1);
-    			append_dev(div0, button0);
-    			append_dev(div2, t3);
+    			if_block.m(div0, null);
+    			append_dev(div2, t2);
     			append_dev(div2, div1);
-    			append_dev(div1, t4);
-    			append_dev(div2, t5);
+    			append_dev(div1, t3);
+    			append_dev(div2, t4);
 
     			if (!mounted) {
-    				dispose = listen_dev(button1, "click", /*collapse*/ ctx[1], false, false, false, false);
+    				dispose = listen_dev(button, "click", click_handler, false, false, false, false);
     				mounted = true;
     			}
     		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*isOpen*/ 1) {
-    				toggle_class(button1, "active", /*isOpen*/ ctx[0]);
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+
+    			if (current_block_type !== (current_block_type = select_block_type(ctx))) {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div0, null);
+    				}
     			}
 
     			if (dirty & /*isOpen*/ 1) {
-    				toggle_class(div1, "open-panel", /*isOpen*/ ctx[0]);
+    				toggle_class(button, "active", /*isOpen*/ ctx[0] === /*i*/ ctx[6]);
+    			}
+
+    			if (dirty & /*isOpen*/ 1) {
+    				toggle_class(div1, "open-panel", /*isOpen*/ ctx[0] === /*i*/ ctx[6]);
     			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div2);
+    			if_block.d();
     			mounted = false;
     			dispose();
     		}
@@ -542,7 +624,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(10:0) {#each accordionContent as { heading, _content }}",
+    		source: "(10:0) {#each accordionContent as { heading, _content }",
     		ctx
     	});
 
@@ -626,10 +708,10 @@ var app = (function () {
     function instance$3($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Content', slots, []);
-    	let isOpen = false;
+    	let isOpen = null;
 
-    	let collapse = () => {
-    		$$invalidate(0, isOpen = !isOpen);
+    	let collapse = i => {
+    		$$invalidate(0, isOpen = isOpen === i ? null : i);
     	};
 
     	const writable_props = [];
@@ -638,6 +720,7 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Content> was created with unknown prop '${key}'`);
     	});
 
+    	const click_handler = i => collapse(i);
     	$$self.$capture_state = () => ({ accordionContent, isOpen, collapse });
 
     	$$self.$inject_state = $$props => {
@@ -649,7 +732,7 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [isOpen, collapse];
+    	return [isOpen, collapse, click_handler];
     }
 
     class Content extends SvelteComponentDev {
@@ -788,9 +871,10 @@ var app = (function () {
     			main = element("main");
     			div = element("div");
     			create_component(accordion.$$.fragment);
-    			attr_dev(div, "class", "card svelte-96ktor");
-    			add_location(div, file$1, 4, 2, 80);
-    			add_location(main, file$1, 3, 0, 70);
+    			attr_dev(div, "class", "card svelte-loysmy");
+    			add_location(div, file$1, 5, 2, 80);
+    			attr_dev(main, "class", "svelte-loysmy");
+    			add_location(main, file$1, 4, 0, 70);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -861,13 +945,6 @@ var app = (function () {
     function create_fragment(ctx) {
     	let main;
     	let card;
-    	let t0;
-    	let div;
-    	let t1;
-    	let a0;
-    	let t3;
-    	let a1;
-    	let t5;
     	let current;
     	card = new Card({ $$inline: true });
 
@@ -875,25 +952,7 @@ var app = (function () {
     		c: function create() {
     			main = element("main");
     			create_component(card.$$.fragment);
-    			t0 = space();
-    			div = element("div");
-    			t1 = text("Challenge by ");
-    			a0 = element("a");
-    			a0.textContent = "Frontend Mentor";
-    			t3 = text(". Coded by ");
-    			a1 = element("a");
-    			a1.textContent = "Giddel Wilson";
-    			t5 = text(".");
-    			attr_dev(a0, "href", "https://www.frontendmentor.io?ref=challenge");
-    			attr_dev(a0, "target", "_blank");
-    			attr_dev(a0, "class", "svelte-rn3531");
-    			add_location(a0, file, 8, 17, 120);
-    			attr_dev(a1, "href", "giddelwilson-v2.netlify.app");
-    			attr_dev(a1, "class", "svelte-rn3531");
-    			add_location(a1, file, 11, 16, 237);
-    			attr_dev(div, "class", "attribution svelte-rn3531");
-    			add_location(div, file, 7, 2, 77);
-    			attr_dev(main, "class", "svelte-rn3531");
+    			attr_dev(main, "class", "svelte-1v5372k");
     			add_location(main, file, 4, 0, 56);
     		},
     		l: function claim(nodes) {
@@ -902,13 +961,6 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			insert_dev(target, main, anchor);
     			mount_component(card, main, null);
-    			append_dev(main, t0);
-    			append_dev(main, div);
-    			append_dev(div, t1);
-    			append_dev(div, a0);
-    			append_dev(div, t3);
-    			append_dev(div, a1);
-    			append_dev(div, t5);
     			current = true;
     		},
     		p: noop,

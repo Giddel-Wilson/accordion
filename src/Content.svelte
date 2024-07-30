@@ -1,21 +1,29 @@
 <script>
   import { accordionContent } from "./ContentData";
 
-  let isOpen = false;
-  let collapse = () => {
-    isOpen = !isOpen;
-  }
+  let isOpen = null;
+  let collapse = (i) => {
+    isOpen = isOpen === i ? null : i;
+  };
 </script>
 
-{#each accordionContent as { heading, _content }}
+{#each accordionContent as { heading, _content }, i}
   <div class="accord">
-    <button class="accordBtn" class:active={isOpen} on:click={collapse}>
+    <button
+      class="accordBtn"
+      class:active={isOpen === i}
+      on:click={() => collapse(i)}
+    >
       <div class="div">
         <h4>{heading}</h4>
-        <button class="btn">━</button>
+        {#if isOpen === i}
+        <button class="minusBtn">━</button>
+        {:else}
+        <button class="plusBtn">+</button>
+        {/if}
       </div>
     </button>
-    <div class="panel" class:open-panel={isOpen}>
+    <div class="panel" class:open-panel={isOpen === i}>
       {_content}
     </div>
   </div>
@@ -31,12 +39,26 @@
   .accord:last-child {
     border-bottom: none;
   }
-  
+
   .div h4 {
     font-size: 15px;
   }
-  
-  .btn {
+
+  .plusBtn {
+    border-radius: 100%;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: blueviolet;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 21px;
+    width: 21px;
+    margin-left: auto;
+  }
+  .minusBtn {
     border-radius: 100%;
     font-size: 12px;
     font-weight: 600;
@@ -46,8 +68,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 20px;
-    width: 20px;
+    height: 21px;
+    width: 21px;
     margin-left: auto;
   }
 
@@ -66,16 +88,11 @@
     color: gray;
     padding: 20px 0;
     display: none;
+    transition: max-height 0.3s ease-out;
   }
 
   .open-panel {
     display: block;
-  }
-
-  .div button {
-    text-align: start;
-    background-color: blueviolet;
-    font-size: 13px;
   }
 
   div button {
@@ -84,7 +101,4 @@
     width: 100%;
     height: 100%;
   }
-  /* .accordBtn:active {
-    background-color: blue;
-  } */
 </style>
