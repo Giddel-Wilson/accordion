@@ -57,7 +57,7 @@
   }
   @media only screen and (width < 345px) {
     .card {
-      width: 36.5vb;
+      width: 50%;
       height: fit-content;
       padding: 0 30px 30px 30px;
     }
