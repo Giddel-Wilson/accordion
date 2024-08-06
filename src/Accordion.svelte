@@ -4,7 +4,7 @@
 
 <main>
   <div class="faq">
-    <span class="star"></span>
+    <img src="./icon-star.svg" alt="" class="star">
     <h1>FAQs</h1>
   </div>
   <br />
@@ -29,11 +29,6 @@
     margin-left: 20px;
   }
   .star {
-    width: 100px;
-    height: 10vh;
-    background: url(../public/assets/images/star.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: 1px solid black;
-  }
+    width: 50px;
+}
 </style>

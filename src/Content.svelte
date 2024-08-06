@@ -17,9 +17,9 @@
       <div class="div">
         <h4>{heading}</h4>
         {#if isOpen === i}
-        <button class="minusBtn">━</button>
+          <button class="minusBtn">━</button>
         {:else}
-        <button class="plusBtn">+</button>
+          <button class="plusBtn">+</button>
         {/if}
       </div>
     </button>
@@ -31,7 +31,6 @@
 
 <style>
   .accord {
-    /* margin: 20px 0 0 0; */
     padding: 20px 0 7px 0;
     border-bottom: 2px solid whitesmoke;
     box-shadow: 0 0 2px whitesmoke;
@@ -78,6 +77,14 @@
     justify-content: center;
     text-align: start;
     align-items: center;
+  }
+  @media only screen and (max-width: 640px) {
+    .div {
+      margin: 0 5px 0 0;
+    }
+    .div h4 {
+      width: 90%;
+    }
   }
 
   .panel {

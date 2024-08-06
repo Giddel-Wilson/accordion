@@ -27,52 +27,13 @@
     background-color: transparent;
   }
 
-  @media only screen and (380px <= width < 768px) {
+  @media only screen and (max-width: 640px) {
     .card {
-      width: 44vb;
+      width: 90vw;
       height: fit-content;
       padding: 0 30px 30px 30px;
+      margin: 4em 0 0 0;
     }
   }
-  @media only screen and (360 < width <= 380px) {
-    .card {
-      width: 52vb;
-      height: fit-content;
-      padding: 0 30px 30px 30px;
-    }
-  }
-  @media only screen and (345px <= width <= 360px) {
-    .card {
-      width: 45vb;
-      height: fit-content;
-      padding: 0 30px 30px 30px;
-    }
-  }
-  @media only screen and (width < 345px) {
-    .card {
-      width: 36.5vb;
-      height: fit-content;
-      padding: 0 30px 30px 30px;
-    }
-  }
-  @media only screen and (width < 345px) {
-    .card {
-      width: 50%;
-      height: fit-content;
-      padding: 0 30px 30px 30px;
-    }
-  }
-  @media (width: 1024px) and (height: 1024px) {
-    .card {
-      width: 50vb;
-      padding: 0 30px 50px 30px;
-    }
-  }
-  @media (width: 540px) and (height: 720px) {
-    .card {
-      width: 60vb;
-      padding: 0 30px 50px 30px;
-    }
-  }
-  
+   
 </style>

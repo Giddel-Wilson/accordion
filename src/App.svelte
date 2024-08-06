@@ -22,9 +22,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-right: auto;
-    margin-left: auto;
   }
+  @media only screen and (max-width: 640px) {
+    main {
+      max-width: none;
+    }
+  }
+
 
   /* .attribution {
     font-size: 11px;
